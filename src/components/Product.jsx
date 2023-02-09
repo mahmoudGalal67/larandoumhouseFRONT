@@ -9,7 +9,8 @@ import axios from 'axios'
 
 const Product = ({ product , type}) => {
   const dispatch = useDispatch()
-  const bf = "http://localhost:5000/uploads"
+  // const bf = "http://localhost:5000/uploads"
+  const bf = "https://larandoumhouseback.onrender.com/uploads"
   // const baseURL = "http://localhost:5000"
   const baseURL = "https://larandoumhouseback.onrender.com"
   const { wishlist } = useSelector((state) => state.wishlist)

@@ -204,7 +204,7 @@ import axios from 'axios';
     const location = useLocation()
     const type = location.pathname.split("/")[1]
     // const baseURL = "http://localhost:5000"
-  const baseURL = "https://larandoumhouseback.onrender.com"
+    const baseURL = "https://larandoumhouseback.onrender.com"
 
     const [products, setproducts] = useState([])
 

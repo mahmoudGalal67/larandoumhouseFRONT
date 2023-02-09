@@ -10,7 +10,8 @@ import { AiFillDelete } from "react-icons/ai"
 import "./cart.css"
 
 function Cart() {
-  const bf = "http://localhost:5000/uploads"
+  // const bf = "http://localhost:5000/uploads"
+  const bf = "https://larandoumhouseback.onrender.com/uploads"
   const { cart } = useSelector((state) => state.cart)
   const {user}= useSelector((state) => state.auth)
   const navigate = useNavigate()
