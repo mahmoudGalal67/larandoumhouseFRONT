@@ -10,7 +10,8 @@ function ProductCategories() {
   const location = useLocation()
   const type = location.pathname.split("/")[1]
   const category = location.pathname.split("/")[2]
-  const baseURL = "http://localhost:5000"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const [products, setproducts] = useState([])
   useEffect(() => {
     const getProducts = async () => {

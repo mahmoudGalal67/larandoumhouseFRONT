@@ -23,7 +23,8 @@ function ProductDetails() {
   
   const location = useLocation()
   const dispatch = useDispatch()
-  const baseURL = "http://localhost:5000"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const id = location.pathname.split("/")[3]
   const bf = "http://localhost:5000/uploads"
   const [product, setproduct] = useState({})

@@ -12,7 +12,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
-  const baseURL = "http://localhost:5000"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const { user } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const settings = {

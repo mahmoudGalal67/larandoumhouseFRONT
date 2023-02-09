@@ -14,7 +14,8 @@ function Register() {
   const location = useLocation()
   const dispatch = useDispatch()
   
-  const baseURL ="http://localhost:5000"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
 
   const firstName = useRef()
   const lastName = useRef()

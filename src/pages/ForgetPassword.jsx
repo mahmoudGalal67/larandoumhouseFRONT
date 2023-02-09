@@ -4,7 +4,9 @@ import React, { useRef, useState } from 'react'
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-function ForgetPassword(){
+function ForgetPassword() {
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const email = useRef()
   const newPassword = useRef()
   const [loading, setloading] = useState(false)
@@ -17,7 +19,7 @@ function ForgetPassword(){
     if (newPasswordValue !== "" && emailValue !== "") {
       setloading(true)
       try {
-        await axios.post("http://localhost:5000/auth/forgetPassword", { email: emailValue, newPassword: newPasswordValue })
+        await axios.post(`${baseURL}/auth/forgetPassword`, { email: emailValue, newPassword: newPasswordValue })
         setloading(false)
       }
       catch (err) {

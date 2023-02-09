@@ -15,7 +15,8 @@ function Cart() {
   const {user}= useSelector((state) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const baseURL = "http://localhost:5000"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
 
   const totalPrice = cart.reduce((price, item) => {
     return price+item.price
