@@ -41,25 +41,16 @@ function Home() {
       <Navbar />
       <header>
         <Slider {...settings}>
-          <img src={require("../assets/images/Home/new collection/01.jpg")} alt="" />
-          <img src={require("../assets/images/Home/new collection/02.jpg")} alt="" />
-          <img src={require("../assets/images/Home/new collection/03.jpg")} alt="" />
-          <img src={require("../assets/images/Home/new collection/04.jpg")} alt="" />
-          <img src={require("../assets/images/Home/new collection/05.jpg")} alt="" />
-        </Slider>
-        <h2 className="text-center my-3 md:my-7 font-bold text-lg md:text-3xl">SHOP BY CATEGORY</h2>
-        <Link to="/women"><img src={require("../assets/images/Home/categories/01.jpg")} alt="" /></Link>
-        <Link to="/men"><img src={require("../assets/images/Home/categories/02.jpg")} alt="" /></Link>
-        <Link to="/kids"><img src={require("../assets/images/Home/categories/03.jpg")} alt="" /></Link>
-        <Link to="/gifts"><img src={require("../assets/images/Home/categories/04.jpg")} alt="" /></Link>
-        <Link to="/new"><img src={require("../assets/images/Home/categories/05.jpg")} alt="" /></Link>
-        <Slider {...settings}>
           <img src={require("../assets/images/Home/shop this look/01.jpg")} alt="" />
           <img src={require("../assets/images/Home/shop this look/02.jpg")} alt="" />
           <img src={require("../assets/images/Home/shop this look/03.jpg")} alt="" />
           <img src={require("../assets/images/Home/shop this look/04.jpg")} alt="" />
           <img src={require("../assets/images/Home/shop this look/05.jpg")} alt="" />
         </Slider>
+        <h2 className="text-center my-3 md:my-7 font-bold text-sm md:text-3xl">SHOP BY CATEGORY</h2>
+        <Link to="/women"><img src={require("../assets/images/Home/categories/01.jpg")} alt="" /></Link>
+        <Link to="/gifts"><img src={require("../assets/images/Home/categories/04.jpg")} alt="" /></Link>
+        <Link to="/new"><img src={require("../assets/images/Home/categories/05.jpg")} alt="" /></Link>
       </header>
       <Footer />
     </div>

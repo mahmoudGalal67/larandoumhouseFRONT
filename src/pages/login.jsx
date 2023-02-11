@@ -94,7 +94,7 @@ function Login() {
               useOneTap
               />
               <LoginSocialFacebook
-              appId='1322683581909064'
+              appId='872195537325397'
               onResolve={facebookSuccess}
               onReject={(err) => {
               console.log(err)

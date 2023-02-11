@@ -21,11 +21,18 @@ function AddProduct() {
   const [color, setcolor] = useState('')
   const [colors, setcolors] = useState([])
   const [files, setfiles] = useState([])
-  let image=""
-  let images=[]
   const [colorError, setcolorError] = useState('')
   const [error, seterror] = useState('')
+  let image=""
+  let images=[]
+  let imageColors = []
 
+  useEffect(() => {
+    for (let i = 0; i < colors.length; i++){
+    imageColors.push(colors[i])
+    imageColors.push(colors[i])
+    }
+},[colors])
     useEffect(() => {
     const verify = async () => {
       const { data } = await axios.get(`${baseURL}/admin`, { headers: { verify: user?.verify } })
@@ -41,7 +48,6 @@ function AddProduct() {
     setcolors((prev) => [...prev, color])
     setcolorError("")
   }
-
   const addProduct = async (e) => {
     e.preventDefault()
     if (name === "" || desc === "" || price === 0 || type === "" || category === "" || mainFile === "" || !sizes.length|| color === "" || !colors.length|| !files.length ) {
@@ -57,52 +63,52 @@ function AddProduct() {
       data.append("file", mainFile);
       image=filename
       try {
-        await axios.post(`${baseURL}/api/upload`, data);
+        axios.post(`${baseURL}/api/upload`, data);
       } catch (err) {
         console.log(err);
         setloading(false)
       }
     }
       if (files) {
-      await Promise.all(Object.values(files).map(async(file) => {
+      Object.values(files).map((file) => {
       const data =new FormData();
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
       images.push(filename)
-        try {        
-        await axios.post(`${baseURL}/api/upload`, data);
+      try {        
+        axios.post(`${baseURL}/api/upload`, data);
       } catch (err) {
-          console.log(err);
-          setloading(false)
+        console.log(err);
+        setloading(false)
       }
-      }))
+    })
       }
       try {
         const { data } = await axios.post(`${baseURL}/products/add`, { title: name, desc, price, type, category, image })
-        await Promise.all(colors.map(async(color) => {
+        Promise.all(colors.map((color) => {
           try {
-            await axios.post(`${baseURL}/products/colors/add`,{color,productId:data})
+            axios.post(`${baseURL}/products/colors/add`,{color,productId:data})
           }
           catch (err) {
             console.log(err);
             setloading(false)
           }
         }))
-        await Promise.all(sizes.map(async(size) => {
+        Promise.all(sizes.map((size) => {
           try {
-            await axios.post(`${baseURL}/products/sizes/add`,{size,productId:data})
+            axios.post(`${baseURL}/products/sizes/add`,{size,productId:data})
           }
           catch (err) {
             console.log(err);
             setloading(false)
           }
         }))
-        await Promise.all(images.map(async(image) => {
+        Promise.all(images.map((image,index) => {
           try {
-            await axios.post(`${baseURL}/products/images/add`, { image, productId: data })
+            axios.post(`${baseURL}/products/images/add`, { image, productId: data,color:imageColors[index] })
             setloading(false)
-            navigate("/product/details/"+ data)
+            navigate("/dashboard")
           }
           catch (err) {
             console.log(err);

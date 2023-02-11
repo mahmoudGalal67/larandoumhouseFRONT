@@ -12,87 +12,6 @@ import axios from 'axios';
 
   const ProductTypes=()=> {
   const Categories = {
-  men:
-    [
-      {category: "Accessories",
-        image: (require("../assets/images/categories/men/accessories.png"))
-      },
-      {category: "Activewear",
-        image: (require("../assets/images/categories/men/active-wear.png"))
-      },
-      {category: "Candora",
-        image: (require("../assets/images/categories/men/candora.png"))
-      },
-      {category: "Pants",
-        image: (require("../assets/images/categories/men/pants.png"))
-      },
-      {
-      category: "Tops",
-        image: (require("../assets/images/categories/men/tops.png"))
-      },
-      {
-      category: "Jeans",
-        image: (require("../assets/images/categories/men/jeans.png"))
-      },
-      {
-      category: "Shoes",
-          image: (require("../assets/images/categories/men/shoes.png"))
-        },
-      {
-      category: "Bags",
-          image: (require("../assets/images/categories/men/bags.png"))
-        },
-      {
-      category: "Coats",
-          image: (require("../assets/images/categories/men/coats.png"))
-        },
-      {
-      category: "Jackets",
-      image: (require("../assets/images/categories/men/jackets.png"))},
-    ],
-  kids:
-    [
-      {category: "Abaya",
-        image: (require("../assets/images/categories/kids/abaya.png"))
-      },
-      {category: "Kaftan",
-        image: (require("../assets/images/categories/kids/koftan.png"))
-      },
-      {category: "Accessories",
-        image: (require("../assets/images/categories/kids/accessories.png"))
-      },
-      {category: "Pants",
-        image: (require("../assets/images/categories/kids/pants.png"))
-      },
-      {
-        category: "Tops",
-        image: (require("../assets/images/categories/kids/tops.png"))
-      },
-      {
-        category: "Jeans",
-        image: (require("../assets/images/categories/kids/jeans.png"))
-      },
-      {
-        category: "Bags",
-        image: (require("../assets/images/categories/kids/bags.png"))
-      },
-      {
-        category: "Shoes",
-        image: (require("../assets/images/categories/kids/shoes.png"))
-      },
-      {
-        category: "Boys",
-        image: (require("../assets/images/categories/kids/boys.png"))
-      },
-      {
-        category: "Girls",
-        image: (require("../assets/images/categories/kids/girls.png"))
-      },
-      {
-        category: "Baby",
-        image: (require("../assets/images/categories/kids/boys.png"))
-      },
-    ],
   women:
     [
       {category: "Abaya",
@@ -148,25 +67,7 @@ import axios from 'axios';
         image: (require("../assets/images/categories/women/dressess.png"))
       },
       ],
-      gifts:
-    [
-      // {category: "women",
-      //   image: (require("../assets/images/Home/categories/01.jpg"))
-      // },
-      // {category: "women",
-      //   image: (require("../assets/images/Home/categories/01.jpg"))
-      // },
-      // {category: "women",
-      //   image: (require("../assets/images/Home/categories/01.jpg"))
-      // },
-      // {category: "women",
-      //   image: (require("../assets/images/Home/categories/01.jpg"))
-      // },
-      // {
-      // category: "women",
-      //   image: (require("../assets/images/Home/categories/01.jpg"))
-      // },
-      ],
+      gifts:[],
       new:[]
 }
     const settings = {

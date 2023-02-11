@@ -33,7 +33,7 @@ const Product = ({ product , type}) => {
         {isFavourite?<AiFillHeart className='absolute bottom-1 right-3 text-3xl cursor-pointer hover:scale-150 transition-all duration-75 ease-in-out' onClick={setFavourite}/>:
         <AiOutlineHeart className='absolute text-3xl bottom-1 right-3  cursor-pointer hover:scale-105 transition-all duration-75 ease-in-out' onClick={setFavourite}/>}
       </div>
-      <Link to={product.type==="gifts" ? `/gift/details/${product.id}` :`/product/details/${product.id}`}><p className='text-bold text-base text-center'>{product.title}</p></Link>
+      <Link to={product.type==="gifts" ? `/gift/details/${product.id}` :`/product/${product.type}/${product.category}/${product.id}`}><p className='text-bold text-base text-center'>{product.title}</p></Link>
       <div className='font-bold text-base text-fade'><span style={{color:"#B12704"}}>{product.price}</span></div>
     </div>
   )

@@ -39,7 +39,7 @@ function AddGift() {
         data.append("file", File);
         image = filename
         try {
-          await axios.post(`${baseURL}/api/upload`, data);
+          axios.post(`${baseURL}/api/upload`, data);
         } catch (err) {
           console.log(err);
           setloading(false)

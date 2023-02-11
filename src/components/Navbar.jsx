@@ -7,20 +7,15 @@ import {IoMdArrowDropdown} from "react-icons/io"
 import { Link} from 'react-router-dom'
   
 function Navbar() {
-  const navTypes = [["WOMEN","women"], ["MEN","men"], ["KIDS","kids"], ["GIFT","gifts"], ["BEAUTY & FRAGRANCE","gifts"]]
+  const navTypes = [["WOMEN","women"],["GIFT","gifts"], ["BEAUTY & FRAGRANCE","gifts"]]
   const navCategories = [{
     categories: ["Coats", "Jackets", "Pants", "Skirts", "Jeans", "Sweat pants", "Bags", "Accessories", "Shoes", "Abaya", "Kaftan","Dresses","Lingerie","Tops"],
     images: [(require("../assets/images/navCategories/women.png")), (require("../assets/images/navCategories/women.png"))]},{
-    categories: ["Coats", "Jackets", "Pants", "Tops", "Jeans", "Shoes", "Bags", "Accessories", "Activewear", "Candora"],
-    images: [(require("../assets/images/navCategories/men1.png")), (require("../assets/images/navCategories/men2.png"))]},{
-    categories: ["Boys", "Girls", "Baby", "Pants", "Tops", "Jeans", "Bags", "Shoes", "Abaya", "Kaftan", "Accessories"],
-    images: [(require("../assets/images/navCategories/kids1.png")), (require("../assets/images/navCategories/kids2.png"))]},{
+    categories: ["Coats", "Jackets", "Pants", "Tops", "Jeans", "Shoes", "Bags", "Accessories", "Activewear", "Candora"],  
     categories: ["For her", "For him", "it is a boy", "it is a girl", "New Home"],
     images: [(require("../assets/images/navCategories/gifts-for-boyfriends-parents-1-1.png")), (require("../assets/images/navCategories/beauty.png"))]},{
     categories: ["Beauty", "Fragrance"],
-    images: [(require("../assets/images/navCategories/Cult-Beauty-The-Fragrance-Discovery-Kit-one-1440x1440.png")), (require("../assets/images/navCategories/makeup-display.png"))]},{
-    categories: [],
-    images: []},
+    images: [(require("../assets/images/navCategories/Cult-Beauty-The-Fragrance-Discovery-Kit-one-1440x1440.png")), (require("../assets/images/navCategories/makeup-display.png"))]}
   ]
   
 
@@ -40,7 +35,7 @@ function Navbar() {
 
   return (
     <div className='navCategory relative'>
-        <div className="wrapper flex bg-black text-white lg:px-8 px-4 justify-between"  >
+        <div className="wrapper flex bg-black md:gap-16 gap-5 text-white lg:px-8 px-4 justify-center"  >
         <div className='py-2 px-2 flex items-center hover:bg-white hover:text-black'>
           <Link to="/">HOME</Link>
         </div>

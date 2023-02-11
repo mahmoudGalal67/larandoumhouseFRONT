@@ -5,7 +5,6 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { fetchFailure, fetchFinish, fetchStart } from '../redux/cartSlice'
 
-import { AiOutlineHeart } from "react-icons/ai"
 import {BsBag} from "react-icons/bs"
 import Slider from "react-slick";
 import axios from "axios"
@@ -104,7 +103,7 @@ function GiftDetails() {
   return (
   <>
     {loading &&
-      <div className="flex justify-center items-center absolute top-0 left-0 w-full h-screen bg-overlay">
+      <div className="flex justify-center items-center top-0 left-0 w-full h-screen bg-overlay fixed">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
     </div>}
     <Header />
@@ -113,7 +112,7 @@ function GiftDetails() {
     <div className='flex av:items-center flex-col av:flex-row text-gray'>
       <div className="left w-full av:w-2/3">
         <div className="image_wrapper flex w-full">
-          <div className='w-full px-5'><img className='w-full object-cover' src={`${bf}/${gift.image}`} alt="" /></div>
+          <div className='w-full px-5'><img className='w-full object-cover h-44' src={`${bf}/${gift.image}`} alt="" /></div>
           </div>
             <p className='av:my-5 text-center mb-2 px-12 text-sm'>{ gift.desc}</p>
       </div>

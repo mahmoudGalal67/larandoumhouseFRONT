@@ -5,7 +5,6 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { fetchFailure, fetchFinish, fetchStart } from '../redux/cartSlice'
 
-import { AiOutlineHeart } from "react-icons/ai"
 import {BsBag} from "react-icons/bs"
 import Slider from "react-slick";
 import axios from "axios"
@@ -25,13 +24,14 @@ function ProductDetails() {
   const dispatch = useDispatch()
   // const baseURL = "http://localhost:5000"
   const baseURL = "https://larandoumhouseback.onrender.com"
-  const id = location.pathname.split("/")[3]
+  const id = location.pathname.split("/")[4]
+  const cateagory = location.pathname.split("/")[3]
+  const type = location.pathname.split("/")[2]
     // const bf = "http://localhost:5000/uploads"
   const bf = "https://larandoumhouseback.onrender.com/uploads"
   const [product, setproduct] = useState({})
   const [similar, setsimilar] = useState([])
-  const [imageIndex, setimageIndex] = useState(0)
-  const [choosenColor, setchoosenColor] = useState('')
+  const [choosenColor, setchoosenColor] = useState("")
   const [choosenSize, setchoosenSize] = useState('')
   const [admin, setadmin] = useState(false)
   const [sizeGuide, setsizeGuide] = useState('')
@@ -62,8 +62,7 @@ function ProductDetails() {
 
   useEffect(() => {
       const verify = async () => {
-        const res = await axios.get(`${baseURL}/admin`, { headers: { verify: user?.verify } })
-      setadmin(res.data.verify)
+        axios.get(`${baseURL}/admin`, { headers: { verify: user?.verify } }).then((res)=>setadmin(res.data.verify))
     }
     verify()
   },[user?.verify ,navigate])
@@ -71,25 +70,25 @@ function ProductDetails() {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const productFeed = await axios.get(`${baseURL}/products/product/${id}`)
-        const colorsFeed = await axios.get(`${baseURL}/products/colors/${id}`)
-        const imagesFeed = await axios.get(`${baseURL}/products/images/${id}`)
-        const sizesFeed = await axios.get(`${baseURL}/products/sizes/${id}`)
-        const { data } = await axios.get(`${baseURL}/products/category?type=${productFeed.data.type}&category=${productFeed.data.category}`)
-        setproduct({ product: productFeed.data, colors: colorsFeed.data, images: imagesFeed.data, sizes: sizesFeed.data })
-        setsimilar(data)
+        axios.get(`${baseURL}/products/product/${id}`).then(({ data }) => setproduct((prev) => ({ ...prev, product: data })))
+        axios.get(`${baseURL}/products/colors/${id}`).then(({ data }) => {
+          setproduct((prev) => ({ ...prev, colors: data }))
+          setchoosenColor(data[0].color)
+        })
+        axios.get(`${baseURL}/products/images/${id}`).then(({data})=>setproduct((prev)=>({...prev,images:data})))
+        axios.get(`${baseURL}/products/sizes/${id}`).then(({data})=>setproduct((prev)=>({...prev,sizes:data})))
+        axios.get(`${baseURL}/products/category?type=${type}&category=${cateagory}`).then(({data})=>setsimilar((data)))
       }
       catch (err) {
         console.log(err)
     }
     }
     getProduct()
-  }, [id])
+  }, [id,cateagory,type])
 
   
 
-  const setColor = (index , color) => {
-    setimageIndex(index * 2)
+  const setColor = ( color) => {
     setchoosenColor(color)
   }
   const colorInputStyle = (color) => {
@@ -120,12 +119,12 @@ function ProductDetails() {
     if (window.confirm("Are you sure you want to delete  " + product.product.title)) {
     dispatch(fetchStart())
     try {
-    await axios.delete((`${baseURL}/products/product/${id}?type=${type}`))
-    await axios.delete((`${baseURL}/products/colors/${id}?type=${type}`))
-    await axios.delete((`${baseURL}/products/sizes/${id}?type=${type}`))
-    await axios.delete((`${baseURL}/products/images/${id}?type=${type}`))
-    await axios.delete((`${baseURL}/cart/${id}`))
-    await axios.delete((`${baseURL}/wishlist/${id}`))
+    axios.delete((`${baseURL}/products/product/${id}?type=${type}`))
+    axios.delete((`${baseURL}/products/colors/${id}?type=${type}`))
+    axios.delete((`${baseURL}/products/sizes/${id}?type=${type}`))
+    axios.delete((`${baseURL}/products/images/${id}?type=${type}`))
+    axios.delete((`${baseURL}/cart/${id}`))
+    axios.delete((`${baseURL}/wishlist/${id}`))
     dispatch(fetchFinish())
     navigate("/")
     }
@@ -135,11 +134,14 @@ function ProductDetails() {
     }
     }
   }
-  if(!product.product) return
+  console.log(product.images,choosenColor);
+  if(!product.product||!product.images||!product.colors||!product.sizes) return <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-overlay">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
   return (
   <>
     {loading &&
-      <div className="flex justify-center items-center absolute top-0 left-0 w-full h-full bg-overlay">
+      <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-overlay">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
     </div>}
     <Header />
@@ -147,9 +149,10 @@ function ProductDetails() {
       <div className="product-details m-8">
     <div className='flex av:items-center flex-col av:flex-row text-gray'>
       <div className="left w-full av:w-2/3">
-        <div className="image_wrapper flex w-full">
-          <div className='w-1/2 px-5'><img className='w-full object-cover  h-80' src={`${bf}/${product.images[imageIndex].image}`} alt="" /></div>
-            <div className='w-1/2 px-5'><img className='w-full object-cover h-80' src={`${bf}/${product.images[imageIndex+1].image}`} alt="" /></div>
+          <div className="image_wrapper flex w-full">
+            {product.images.filter((image) => image.color === choosenColor).map((item,index)=>(
+          <div key={index} className='w-1/2 px-5'><img className='w-full object-cover  h-80' src={`${bf}/${item.image}`} alt="" /></div>
+            ))}
           </div>
             <p className='av:my-5 text-center mb-2 px-12 text-lg'>{ product.product.desc}</p>
       </div>
@@ -159,7 +162,7 @@ function ProductDetails() {
         <div className='text-xs items-center flex gap-5 p-3 border-2 border-green-300 w-fit'><img src={require("../assets/images/details/Group (1).png")} alt="" /> Same Day Delivery Available</div>
         <div className="colors flex gap-3">
           {product.colors.map((color,index) => (
-            <div className='cursor-pointer w-7 h-7 color-active' style={colorInputStyle(color)} key={color.id} onClick={()=>setColor(index,color.color)}></div>
+            <div className='cursor-pointer w-7 h-7 color-active' style={colorInputStyle(color)} key={color.id} onClick={()=>setColor(color.color)}></div>
           ))}
         </div>
             <div className='text-fade self-end mr-5 cursor-pointer' onClick={()=>setsizeGuide(product.product.type)}>Size Guide</div>
