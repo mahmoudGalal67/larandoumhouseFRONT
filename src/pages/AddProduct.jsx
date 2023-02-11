@@ -14,7 +14,6 @@ function AddProduct() {
   const [name, setName] = useState('')
   const [desc, setDesc] = useState('')
   const [price, setprice] = useState(0)
-  const [type, setType] = useState('')
   const [category, setCategory] = useState('')
   const [mainFile, setmainFile] = useState('')
   const [sizes, setsizes] = useState([])
@@ -50,7 +49,7 @@ function AddProduct() {
   }
   const addProduct = async (e) => {
     e.preventDefault()
-    if (name === "" || desc === "" || price === 0 || type === "" || category === "" || mainFile === "" || !sizes.length|| color === "" || !colors.length|| !files.length ) {
+    if (name === "" || desc === "" || price === 0|| category === "" || mainFile === "" || !sizes.length|| color === "" || !colors.length|| !files.length ) {
       seterror("Please add all fields")
     } 
     else {
@@ -85,7 +84,7 @@ function AddProduct() {
     })
       }
       try {
-        const { data } = await axios.post(`${baseURL}/products/add`, { title: name, desc, price, type, category, image })
+        const { data } = await axios.post(`${baseURL}/products/add`, { title: name, desc, price, type:"women", category, image })
         Promise.all(colors.map((color) => {
           try {
             axios.post(`${baseURL}/products/colors/add`,{color,productId:data})
@@ -161,14 +160,6 @@ function AddProduct() {
         <div className="form-el my-8  flex flex-col gap-2">
           <label>Price :</label>
           <input className='p-5 border-2 border-black outline-none' type="number"   onChange={(e)=>setprice(e.target.value)}/>
-        </div>
-        <div className="form-el my-8 w-full">
-          <select className='p-3 border-2  w-full '  onChange={(e)=>setType(e.target.value)}>
-            <option disabled>Choose the type</option>
-            <option className='p-3' value="women" >WOMEN</option>
-            <option className='p-3' value="men" >MEN</option>
-            <option className='p-3'  value="kids" >KIDS</option>
-          </select>
         </div>
         <div className="form-el my-8  flex flex-col gap-2">
           <label>Category : </label>
