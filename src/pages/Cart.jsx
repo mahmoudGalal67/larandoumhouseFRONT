@@ -10,14 +10,14 @@ import { AiFillDelete } from "react-icons/ai"
 import "./cart.css"
 
 function Cart() {
-  // const bf = "http://localhost:5000/uploads"
-  const bf = "https://larandoumhouseback.onrender.com/uploads"
+  const bf = "http://localhost:5000/uploads"
+  // const bf = "https://larandoumhouseback.onrender.com/uploads"
   const { cart } = useSelector((state) => state.cart)
   const {user}= useSelector((state) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // const baseURL = "http://localhost:5000"
-  const baseURL = "https://larandoumhouseback.onrender.com"
+  const baseURL = "http://localhost:5000"
+  // const baseURL = "https://larandoumhouseback.onrender.com"
 
   const totalPrice = cart.reduce((price, item) => {
     return price+item.price
@@ -58,11 +58,13 @@ function Cart() {
         cart.map((item,index) => (
           <div className="cart-item flex-col flex justify-center gap-3 w-60 relative my-5" key={index}>
             <img className='object-cover w-full h-60' src={`${bf}/${item.image}`} alt="" />
-            <Link to={item.type==="gifts" ?`/gift/details/${item.productId}` :`/product/details/${item.productId}`}><div  className='text-center'>{item.title}</div></Link>
+            <Link to={item.type==="gifts" ?`/${item.type}/${item.category}/${item.productId}` :`/product/${item.type}/${item.category}/${item.productId}`}><div  className='text-center'>{item.title}</div></Link>
             <div className='text-center'>{item.price}</div>
+            {item.color &&
             <div className="flex justify-center gap-3">
-              <div style={{ backgroundColor: item.color }} className='w-10 h-10 rounded-full'></div><span className='font-bold text-xl'>{item.size}</span>
+              <div style={{ backgroundColor: item.color }} className='w-10 h-10 rounded-full'></div><span className='font-bold text-xl flex justify-center items-center'>Size: {item.size}</span>
             </div>
+            }
             <AiFillDelete className='text-2xl cursor-pointer text-red absolute bottom-20 opacity-0 right-1' onClick={()=>deleteFromCart(item.id ,user.id)}/>
           </div>
           ))

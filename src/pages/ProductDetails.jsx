@@ -22,13 +22,13 @@ function ProductDetails() {
   
   const location = useLocation()
   const dispatch = useDispatch()
-  // const baseURL = "http://localhost:5000"
-  const baseURL = "https://larandoumhouseback.onrender.com"
+  const baseURL = "http://localhost:5000"
+  // const baseURL = "https://larandoumhouseback.onrender.com"
   const id = location.pathname.split("/")[4]
-  const cateagory = location.pathname.split("/")[3]
+  const category = location.pathname.split("/")[3]
   const type = location.pathname.split("/")[2]
-    // const bf = "http://localhost:5000/uploads"
-  const bf = "https://larandoumhouseback.onrender.com/uploads"
+    const bf = "http://localhost:5000/uploads"
+  // const bf = "https://larandoumhouseback.onrender.com/uploads"
   const [product, setproduct] = useState({})
   const [similar, setsimilar] = useState([])
   const [choosenColor, setchoosenColor] = useState("")
@@ -51,14 +51,25 @@ function ProductDetails() {
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 780,
           settings: {
             slidesToShow: similar.length>2 ? 2 : similar.length,
             slidesToScroll: 1,
           }
         },
+        {
+          breakpoint: 560,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          }
+        },
       ]
   };
+
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
+}, [id])
 
   useEffect(() => {
       const verify = async () => {
@@ -77,14 +88,14 @@ function ProductDetails() {
         })
         axios.get(`${baseURL}/products/images/${id}`).then(({data})=>setproduct((prev)=>({...prev,images:data})))
         axios.get(`${baseURL}/products/sizes/${id}`).then(({data})=>setproduct((prev)=>({...prev,sizes:data})))
-        axios.get(`${baseURL}/products/category?type=${type}&category=${cateagory}`).then(({data})=>setsimilar((data)))
+        axios.get(`${baseURL}/products/category?type=${type}&category=${category}`).then(({data})=>setsimilar((data)))
       }
       catch (err) {
         console.log(err)
     }
     }
     getProduct()
-  }, [id,cateagory,type])
+  }, [id,category,type])
 
   
 
@@ -112,7 +123,7 @@ function ProductDetails() {
       navigate('/cart')
     }
     else {
-      dispatch(fetchFailure("Please choose the color and the size"))
+      dispatch(fetchFailure("Please choose size"))
     }
   }
   const deleteProduct = async (id, type) => {
@@ -134,7 +145,6 @@ function ProductDetails() {
     }
     }
   }
-  console.log(product.images,choosenColor);
   if(!product.product||!product.images||!product.colors||!product.sizes) return <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-overlay">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
     </div>
@@ -147,11 +157,11 @@ function ProductDetails() {
     <Header />
     <Navbar />
       <div className="product-details m-8">
-    <div className='flex av:items-center flex-col av:flex-row text-gray'>
+    <div className='flex items-center lg:items-start flex-col av:flex-row text-gray'>
       <div className="left w-full av:w-2/3">
-          <div className="image_wrapper flex w-full">
+          <div className="image_wrapper flex md:flex-row flex-col gap-3 items-center md:items-start w-full">
             {product.images.filter((image) => image.color === choosenColor).map((item,index)=>(
-          <div key={index} className='w-1/2 px-5'><img className='w-full object-cover  h-80' src={`${bf}/${item.image}`} alt="" /></div>
+          <div key={index} className='w-10/12 md:w-1/2 px-5'><img className='w-full object-cover  h-80' src={`${bf}/${item.image}`} alt="" /></div>
             ))}
           </div>
             <p className='av:my-5 text-center mb-2 px-12 text-lg'>{ product.product.desc}</p>
@@ -166,9 +176,7 @@ function ProductDetails() {
           ))}
         </div>
             <div className='text-fade self-end mr-5 cursor-pointer' onClick={()=>setsizeGuide(product.product.type)}>Size Guide</div>
-            {sizeGuide==="kids"&&<div className='flex justify-center items-center fixed w-screen h-screen top-0 left-0 z-10 bg-fade'><div className='relative'><img className='w-300' src={require('../assets/images/details/children-size.jpeg')} alt="" /><span className='absolute top-2 right-5 font-bold md:text-4xl text-lg cursor-pointer  bg-black text-white w-10 h-10 flex justify-center items-center hover:text-black hover:bg-white rounded-full' onClick={()=>setsizeGuide("")}>X</span></div></div>}
-            {sizeGuide==="women"&&<div className='flex justify-center items-center fixed w-screen h-screen top-0 left-0 z-10 bg-fade'><div className='relative'><img className=''  src={require('../assets/images/details/size-women.png')} alt="" /><span className='absolute top-2 right-5 font-bold md:text-4xl text-lg cursor-pointer bg-black text-white w-10 h-10 flex justify-center items-center hover:text-black hover:bg-white rounded-full' onClick={()=>setsizeGuide("")}>X</span></div></div>}
-            {sizeGuide==="men"&&<div className='flex justify-center items-center fixed w-screen h-screen top-0 left-0 z-10 bg-fade'><div className='relative'><img  className='w-300 ' src={require('../assets/images/details/men-size.jpeg')} alt="" /><span className='absolute top-2 right-5 font-bold md:text-4xl text-lg cursor-pointer  bg-black text-white w-10 h-10 flex justify-center items-center hover:text-black hover:bg-white rounded-full' onClick={()=>setsizeGuide("")}>X</span></div></div>}
+            {(sizeGuide==="women"&&category!=="bags"&&category!=="accessories"&&category!=="shoes")&&<div className='flex justify-center items-center fixed w-screen h-screen top-0 left-0 z-10 bg-fade'><div className='relative'><img className=''  src={require('../assets/images/details/size-women.png')} alt="" /><span className='absolute top-2 right-5 font-bold md:text-4xl text-lg cursor-pointer bg-black text-white w-10 h-10 flex justify-center items-center hover:text-black hover:bg-white rounded-full' onClick={()=>setsizeGuide("")}>X</span></div></div>}
             <div className='sizes flex gap-4'>
               {product.sizes.map((size) => (
                 <div className='flex cursor-pointer justify-center items-center border-2 borde-fade w-10 h-10' key={size.id} style={sizeInputStyle(size.size)} onClick={()=>setchoosenSize(size.size)}>{size.size}</div>
@@ -182,14 +190,17 @@ function ProductDetails() {
         </div>
       </div>
       <div className="same-category my-12">
-        <h3 className='text-2xl text-gray text-center mb-5'>You may also like</h3>
-        <Slider {...settings}>
+      <h3 className='text-2xl text-gray text-center mb-5'>You may also like</h3>
+    {
+      similar.length &&
+      <Slider {...settings}>
         {similar.map((item) => (
-          <div className='p-5' key={item.id}>
+          <div className='similar-item p-5 flex justify-center items-center' key={item.id}>
             <Product className="category-item w-auto" type='similar' product={item} />
           </div>
           ))}
-        </Slider>
+      </Slider>
+      }
       </div>
       </div>
       <Footer />

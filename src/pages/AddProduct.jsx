@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 
 
 function AddProduct() {
-  // const baseURL = "http://localhost:5000"
-  const baseURL = "https://larandoumhouseback.onrender.com"
+  const baseURL = "http://localhost:5000"
+  // const baseURL = "https://larandoumhouseback.onrender.com"
   const {user}= useSelector((state) => state.auth)
   const navigate = useNavigate()
   const [loading, setloading] = useState(false)
@@ -25,13 +25,12 @@ function AddProduct() {
   let image=""
   let images=[]
   let imageColors = []
-
   useEffect(() => {
     for (let i = 0; i < colors.length; i++){
     imageColors.push(colors[i])
     imageColors.push(colors[i])
     }
-},[colors])
+  })
     useEffect(() => {
     const verify = async () => {
       const { data } = await axios.get(`${baseURL}/admin`, { headers: { verify: user?.verify } })

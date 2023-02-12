@@ -9,14 +9,14 @@ import {  Link, useNavigate } from 'react-router-dom'
 import { AiFillDelete } from "react-icons/ai"
 
 function Wishlist() {
-  // const bf = "http://localhost:5000/uploads"
-  const bf = "https://larandoumhouseback.onrender.com/uploads"
+  const bf = "http://localhost:5000/uploads"
+  // const bf = "https://larandoumhouseback.onrender.com/uploads"
   const {user}= useSelector((state) => state.auth)
   const {wishlist}= useSelector((state) => state.wishlist)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // const baseURL = "http://localhost:5000"
-  const baseURL = "https://larandoumhouseback.onrender.com"
+  const baseURL = "http://localhost:5000"
+  // const baseURL = "https://larandoumhouseback.onrender.com"
   useEffect(() => {
     if (!user) {
       navigate("/login")
@@ -59,7 +59,7 @@ function Wishlist() {
             wishlist.map((item) => (
           <div className="cart-item w-60 flex-col flex justify-center gap-3 relative" key={item.id}>
           <img className='object-cover w-full h-60' src={`${bf}/${item.image}`} alt="" />
-          <Link to={item.type==="gifts" ?`/gift/details/${item.id}` :`/product/details/${item.id}`}><div  className='text-center'>{item.title}</div></Link>
+          <Link to={item.type==="gifts" ?`/gift/details/${item.id}` :`/product/${item.type}/${item.category}/${item.id}`}><div  className='text-center'>{item.title}</div></Link>
               <div className='text-center'>{item.price}</div>
               <AiFillDelete className='text-2xl cursor-pointer text-red absolute bottom-20 opacity-0 right-1' onClick={()=>deleteFromWishlist(item.id ,user.id)}/>
           </div>

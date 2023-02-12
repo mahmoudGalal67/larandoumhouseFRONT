@@ -11,6 +11,7 @@ import axios from "axios"
 import {  useLocation, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Product from '../components/Product'
+import { FaClosedCaptioning } from 'react-icons/fa'
 
 function GiftDetails() {
 
@@ -22,15 +23,22 @@ function GiftDetails() {
 
   const location = useLocation()
   const dispatch = useDispatch()
-  // const baseURL = "http://localhost:5000"
-  const baseURL = "https://larandoumhouseback.onrender.com"
+  const baseURL = "http://localhost:5000"
+  // const baseURL = "https://larandoumhouseback.onrender.com"
   const id = location.pathname.split("/")[3]
-    // const bf = "http://localhost:5000/uploads"
-  const bf = "https://larandoumhouseback.onrender.com/uploads"
+  const category = location.pathname.split("/")[2]
+  const type = location.pathname.split("/")[1]
+    const bf = "http://localhost:5000/uploads"
+  // const bf = "https://larandoumhouseback.onrender.com/uploads"
   const [gift, setgift] = useState({})
   const [similar, setsimilar] = useState([])
   const [admin, setadmin] = useState(false)
 
+
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }, [id])
+  
   useEffect(() => {
       const verify = async () => {
         const res = await axios.get(`${baseURL}/admin`, { headers: { verify: user?.verify } })
@@ -42,10 +50,8 @@ function GiftDetails() {
   useEffect(() => {
     const getGift = async () => {
       try {
-        const productFeed = await axios.get(`${baseURL}/products/gift/${id}`)
-        const { data } = await axios.get(`${baseURL}/products/type?type=${productFeed.data.type}`)
-        setgift( productFeed.data )
-        setsimilar(data)
+        axios.get(`${baseURL}/products/gift/${id}`).then((productFeed)=>setgift(productFeed.data))
+        axios.get(`${baseURL}/products/category?type=${type}&category=${category}`).then((productFeed)=>setsimilar(productFeed.data))
       }
       catch (err) {
         console.log(err)
@@ -77,9 +83,16 @@ function GiftDetails() {
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 780,
           settings: {
             slidesToShow: similar.length>2 ? 2 : similar.length,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 560,
+          settings: {
+            slidesToShow: 1,
             slidesToScroll: 1,
           }
         },
@@ -109,14 +122,14 @@ function GiftDetails() {
     <Header />
     <Navbar />
       <div className="product-details m-8">
-    <div className='flex av:items-center flex-col av:flex-row text-gray'>
-      <div className="left w-full av:w-2/3">
+    <div className='flex items-center av:items-start flex-col av:flex-row text-gray'>
+      <div className="left w-10/12 av:w-1/2">
         <div className="image_wrapper flex w-full">
-          <div className='w-full px-5'><img className='w-full object-cover h-44' src={`${bf}/${gift.image}`} alt="" /></div>
+          <div className='w-full px-5'><img className='w-full object-cover h-96' src={`${bf}/${gift.image}`} alt="" /></div>
           </div>
             <p className='av:my-5 text-center mb-2 px-12 text-sm'>{ gift.desc}</p>
       </div>
-      <div className="right av:w-1/3 w-full flex flex-col av:items-start items-center av:gap-4 gap-2 px-5">
+      <div className="right av:w-1/2 w-10/12 flex flex-col av:items-start items-center av:gap-4 gap-2 p-5 av:pl-32">
             <div className='text-lg'>{gift.title}</div>
             <div>{gift.price}</div>
         <div className='text-xs items-center flex gap-5 p-3 border-2 border-green-300 w-fit'><img src={require("../assets/images/details/Group (1).png")} alt="" /> Same Day Delivery Available</div>
@@ -132,7 +145,9 @@ function GiftDetails() {
       similar.length &&
         <Slider {...settings}>
         {similar.map((item) => (
-          <Product className="category-item w-auto" type='similar' product={item} key={item.id} />
+          <div className='similar-item p-5 flex justify-center items-center' key={item.id}>
+            <Product className="category-item w-auto" type='similar' product={item} />
+          </div>
           ))}
         </Slider>
       }
