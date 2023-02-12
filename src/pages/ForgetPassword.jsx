@@ -5,8 +5,8 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function ForgetPassword() {
-  const baseURL = "http://localhost:5000"
-  // const baseURL = "https://larandoumhouseback.onrender.com"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const email = useRef()
   const newPassword = useRef()
   const [loading, setloading] = useState(false)

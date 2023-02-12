@@ -22,13 +22,13 @@ function ProductDetails() {
   
   const location = useLocation()
   const dispatch = useDispatch()
-  const baseURL = "http://localhost:5000"
-  // const baseURL = "https://larandoumhouseback.onrender.com"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const id = location.pathname.split("/")[4]
   const category = location.pathname.split("/")[3]
   const type = location.pathname.split("/")[2]
-    const bf = "http://localhost:5000/uploads"
-  // const bf = "https://larandoumhouseback.onrender.com/uploads"
+    // const bf = "http://localhost:5000/uploads"
+  const bf = "https://larandoumhouseback.onrender.com/uploads"
   const [product, setproduct] = useState({})
   const [similar, setsimilar] = useState([])
   const [choosenColor, setchoosenColor] = useState("")

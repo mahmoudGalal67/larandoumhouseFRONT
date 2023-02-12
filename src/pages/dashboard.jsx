@@ -4,8 +4,8 @@ import axios from "axios"
 import { useSelector } from 'react-redux'
 
 function Dashboard() {
-  const baseURL = "http://localhost:5000"
-  // const baseURL = "https://larandoumhouseback.onrender.com"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const {user}= useSelector((state) => state.auth)
   const navigate = useNavigate()
   useEffect(() => {

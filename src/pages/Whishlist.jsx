@@ -9,14 +9,14 @@ import {  Link, useNavigate } from 'react-router-dom'
 import { AiFillDelete } from "react-icons/ai"
 
 function Wishlist() {
-  const bf = "http://localhost:5000/uploads"
-  // const bf = "https://larandoumhouseback.onrender.com/uploads"
+  // const bf = "http://localhost:5000/uploads"
+  const bf = "https://larandoumhouseback.onrender.com/uploads"
   const {user}= useSelector((state) => state.auth)
   const {wishlist}= useSelector((state) => state.wishlist)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const baseURL = "http://localhost:5000"
-  // const baseURL = "https://larandoumhouseback.onrender.com"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   useEffect(() => {
     if (!user) {
       navigate("/login")

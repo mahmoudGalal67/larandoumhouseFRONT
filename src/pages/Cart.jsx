@@ -10,14 +10,14 @@ import { AiFillDelete } from "react-icons/ai"
 import "./cart.css"
 
 function Cart() {
-  const bf = "http://localhost:5000/uploads"
-  // const bf = "https://larandoumhouseback.onrender.com/uploads"
+  // const bf = "http://localhost:5000/uploads"
+  const bf = "https://larandoumhouseback.onrender.com/uploads"
   const { cart } = useSelector((state) => state.cart)
   const {user}= useSelector((state) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const baseURL = "http://localhost:5000"
-  // const baseURL = "https://larandoumhouseback.onrender.com"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
 
   const totalPrice = cart.reduce((price, item) => {
     return price+item.price

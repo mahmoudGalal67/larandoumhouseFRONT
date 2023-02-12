@@ -23,13 +23,13 @@ function GiftDetails() {
 
   const location = useLocation()
   const dispatch = useDispatch()
-  const baseURL = "http://localhost:5000"
-  // const baseURL = "https://larandoumhouseback.onrender.com"
+  // const baseURL = "http://localhost:5000"
+  const baseURL = "https://larandoumhouseback.onrender.com"
   const id = location.pathname.split("/")[3]
   const category = location.pathname.split("/")[2]
   const type = location.pathname.split("/")[1]
-    const bf = "http://localhost:5000/uploads"
-  // const bf = "https://larandoumhouseback.onrender.com/uploads"
+    // const bf = "http://localhost:5000/uploads"
+  const bf = "https://larandoumhouseback.onrender.com/uploads"
   const [gift, setgift] = useState({})
   const [similar, setsimilar] = useState([])
   const [admin, setadmin] = useState(false)
